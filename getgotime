@@ -1,0 +1,11 @@
+#!/bin/bash
+
+show_time=$(curl 2>/dev/null changelog.com/live | grep 'Start Time' | grep -o '2[0-9][0-9][0-9].*Z')
+
+if [ $? -ne 0 -o "$show_time" = "" ]
+then
+	echo "getgotime: Cannot get show time from http://changelog.com/live" >&2
+	exit 1
+fi
+
+echo "$show_time"

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Configuration:
+# Set web_browser_command to your browser's executable file
+
+web_browser_command="/opt/firefox/firefox"
+live_show_url="https://changelog.com/gotime"
+
+cmdname=`basename $0`
+
+if [ $# -gt 1 ]
+then
+	echo "$cmdname: bad arguments"
+	echo "usage:  $cmdname [ Go-Duration ]"
+	echo "Without an argument, the show time is scraped from"
+	echo "	$live_show_url and the duration is set automatically."
+	echo "If an argument is supplied, it is interpreted as a Go time.Duration"
+	echo "	string.	For example, 2h23s means 2 hours and 23 seconds."
+	exit 2
+elif [ $# -eq 1 ]
+then
+	duration="$1"
+else
+	start_time=`getgotime`
+
+	if [ $? -eq 0 ]
+	then
+		duration=`gt2dur $start_time`
+		if [ $? -ne 0 ]
+		then
+			exit 2
+		fi
+	else
+		exit 2
+	fi
+fi
+
+# "BUG":  You need to manually close the window it opens
+# To prevent that, remove --hold from kon_opts variable in the timer-gui script
+
+timer-gui "$duration" "$web_browser_command" "$live_show_url"
