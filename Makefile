@@ -1,25 +1,27 @@
-# Makefile for time2dur command
+# Makefile for building the gotime2dur command and installing
+# the gotime, gotime-cli, and gotime-scraper shell scripts.
 
-# set BINDIR to the directory in your PATH where you want binary executables (time2dur) installed
+# set BINDIR to the directory in your PATH where you want binary executables (gotime2dur) installed
 BINDIR=/home/jay/.bin/elf
-# set BINDIR to the directory in your PATH where you want shell scripts (gotime and getgotime) installed
-SCRIPTDIR=/home/jay/.bin
 
-time2dur: time2dur.go
-	@go build -o time2dur time2dur.go
+# set BINDIR to the directory in your PATH where you want shell scripts (gotime, gotime-cli, and gotime-scraper) installed
+SSDIR=/home/jay/.bin
+
+gotime2dur: gotime2dur.go
+	@go build -o gotime2dur gotime2dur.go
 
 vet:
-	@go vet time2dur.go
+	@go vet gotime2dur.go
 
 clean:
-	@rm -f time2dur
+	@rm -f gotime2dur
 
 install:
-	@cp time2dur $(BINDIR)
-	@cp gotime getgotime $(SCRIPTDIR)
+	@cp gotime2dur $(BINDIR)
+	@cp gotime gotime-scraper $(SSDIR)
 
 wc:
-	@wc -l time2dur.go
+	@wc -l gotime2dur.go
 
 backup back bak:
-	@cp -a gotime getgotime *.go Makefile README.md TODO .bak
+	@cp -a gotime gotime-cli gotime-scraper *.go Makefile README.md TODO .bak

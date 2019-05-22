@@ -1,41 +1,28 @@
 #!/bin/bash
 
-# Configuration:
-# Set web_browser_command to your browser's executable file
+# Customization:
+# Set term to the name of the virtual terminal program you want to use,
+# and set term_opts to the options it needs
 
-web_browser_command="/opt/firefox/firefox"
-live_show_url="https://changelog.com/gotime"
+term=konsole
 
-cmdname=`basename $0`
+# The --profile argument for konsole uses this profile:
+# General->Profile name: Timer
+# General->Command: /bin/bash
+# General->Columns: 13
+# General->Rows: 2
+# Appearance->Color Scheme: Black on White
+# Appearance->Font: Monospace, Text size: 24
+# Scrolling->Scroll Bar: Hide
+# Advanced->Cursor->Custom cursor color: white (#fff)
+
+term_opts="--profile Timer --hide-menubar --hide-tabbar -p ScrollBarPosition=2 -p TerminalRows=2 -p TerminalColumns=13"
 
 if [ $# -gt 1 ]
 then
-	echo "$cmdname: bad arguments"
-	echo "usage:  $cmdname [ Go-Duration ]"
-	echo "Without an argument, the show time is scraped from"
-	echo "	$live_show_url and the duration is set automatically."
-	echo "If an argument is supplied, it is interpreted as a Go time.Duration"
-	echo "	string.	For example, 2h23s means 2 hours and 23 seconds."
-	exit 2
-elif [ $# -eq 1 ]
-then
-	duration="$1"
-else
-	start_time=`getgotime`
-
-	if [ $? -eq 0 ]
-	then
-		duration=`gt2dur $start_time`
-		if [ $? -ne 0 ]
-		then
-			exit 2
-		fi
-	else
-		exit 2
-	fi
+	echo "gotime: too many arguments"
+	echo "usage: gotime [ Duration ]"
+	exit 1
 fi
 
-# "BUG":  You need to manually close the window it opens
-# To prevent that, remove --hold from kon_opts variable in the timer-gui script
-
-timer-gui "$duration" "$web_browser_command" "$live_show_url"
+$term 2>/dev/null $term_opts -e gotime-cli "$@"

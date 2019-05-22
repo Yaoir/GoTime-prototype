@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# gotime-scraper:
+# Print the RFC3339 time string for the start of the next Go Time episode.
+# It is scraped from a web page.
+
+#show_time_url=http://changelog.com/live
+# for development, a mocked page:
+show_time_url=http://localhost/time.html
+
+cmdname=`basename $0`
+
+line_selection="Start Time"
+time_selection="2[0-9][0-9][0-9].*[Zz]"
+
+# Download the web page, select the line containing "Start Time" from it,
+# and set show_time to the (hopefully RFC3339) time string in that line.
+# RFC3339 Internet Time format: https://tools.ietf.org/html/rfc3339#section-5.6
+
+show_time=$(curl -s 2>/dev/null "$show_time_url" | grep "$line_selection" | grep -o "$time_selection")
+
+if [ $? -ne 0 -o "$show_time" = "" ]
+then
+	echo "$cmdname: Cannot get show time from $show_time_url" >&2
+	exit 1
+fi
+
+echo "$show_time"
