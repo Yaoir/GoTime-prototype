@@ -11,7 +11,9 @@ BINDIR=/home/jay/.bin
 
 term=konsole
 
-# The --profile argument for konsole uses this profile:
+# The --profile argument for konsole uses this profile, which is set
+# up in konsole (Settings->Manage Profiles->New/Edit Profile...):
+#
 # General->Profile name: Timer
 # General->Command: /bin/bash
 # General->Columns: 13

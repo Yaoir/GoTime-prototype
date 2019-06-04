@@ -42,11 +42,9 @@ else
 		duration=`$ELFDIR/gotime2dur $start_time`
 		if [ $? -ne 0 ]
 		then
-echo gotime-cli-1
 			exit 2
 		fi
 	else
-echo gotime-cli-2
 		exit 2
 	fi
 fi
@@ -55,5 +53,6 @@ $ELFDIR/timer "$duration" || exit
 
 nohup "$web_browser_command" >/dev/null 2>&1 "$live_show_url" &
 
+# Probably ("should be") unnecessary:
 # a delay to wait for browser to get started before exiting this script
 #sleep 2

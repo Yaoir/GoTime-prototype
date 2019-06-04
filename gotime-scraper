@@ -5,15 +5,20 @@
 # It is scraped from a web page.
 
 show_time_url=https://changelog.com/slack/countdown/gotime
-# for development, a mocked page:
-#show_time_url=http://localhost/time.html
+
+# for development, a mocked page. To test that the browser opens when
+# the timer reaces 0, make a copy of the $show_time_url web page and
+# change the RFC3339 time string to a time in the past.
+#show_time_url=http://localhost/gotime-mock.html
 
 cmdname=`basename $0`
 
 line_selection1="data"
+# a very cheap regular expression that matches the RFC3339 string.
+# (There are much better regexes for this to be found online.)
 time_selection="2[0-9][0-9][0-9].*[Zz]"
 
-# Download the web page, select the line containing "Start Time" from it,
+# Download the web page, select the line containing line_selection1 from it,
 # and set show_time to the (hopefully RFC3339) time string in that line.
 # RFC3339 Internet Time format: https://tools.ietf.org/html/rfc3339#section-5.6
 
