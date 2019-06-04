@@ -7,12 +7,6 @@
 # Mozilla Firefox, installed in /opt/firefox
 web_browser_command="/opt/firefox/firefox"
 
-# Or try one of these:
-#web_browser_command="firefox"
-#web_browser_command="firefox-esr"
-#web_browser_command="google-chrome"
-#web_browser_command="opera"
-
 BINDIR=/home/jay/.bin
 ELFDIR=/home/jay/.bin/elf
 
@@ -52,7 +46,4 @@ fi
 $ELFDIR/timer "$duration" || exit
 
 nohup "$web_browser_command" >/dev/null 2>&1 "$live_show_url" &
-
-# Probably ("should be") unnecessary:
-# a delay to wait for browser to get started before exiting this script
-#sleep 2
+sleep 5
