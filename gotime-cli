@@ -1,9 +1,22 @@
 #!/bin/bash
 
-# Configuration:
+# CONFIGURATION:
+
 # Set web_browser_command to your browser's executable file
 
+# Mozilla Firefox, installed in /opt/firefox
 web_browser_command="/opt/firefox/firefox"
+
+# Or try one of these:
+#web_browser_command="firefox"
+#web_browser_command="firefox-esr"
+#web_browser_command="google-chrome"
+#web_browser_command="opera"
+
+BINDIR=/home/jay/.bin
+ELFDIR=/home/jay/.bin/elf
+
+# END OF CONFIGURATION
 
 live_show_url="https://changelog.com/gotime"
 
@@ -22,21 +35,25 @@ elif [ $# -eq 1 ]
 then
 	duration="$1"
 else
-	start_time=`gotime-scraper`
+	start_time=`$BINDIR/gotime-scraper`
 
 	if [ $? -eq 0 ]
 	then
-		duration=`gotime2dur $start_time`
+		duration=`$ELFDIR/gotime2dur $start_time`
 		if [ $? -ne 0 ]
 		then
+echo gotime-cli-1
 			exit 2
 		fi
 	else
+echo gotime-cli-2
 		exit 2
 	fi
 fi
 
-timer "$duration"
+$ELFDIR/timer "$duration" || exit
+
 nohup "$web_browser_command" >/dev/null 2>&1 "$live_show_url" &
-# wait for browser to get started before exiting (or maybe it won't start)
-sleep 2
+
+# a delay to wait for browser to get started before exiting this script
+#sleep 2

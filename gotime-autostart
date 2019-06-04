@@ -1,0 +1,8 @@
+#!/bin/bash
+
+BINDIR=/home/jay/.bin
+
+if [ `date +\%u` -eq 2 ]
+then
+	$BINDIR/gotime
+fi

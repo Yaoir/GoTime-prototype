@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# Customization:
+# CONFIGURATION:
+
+# Where the is kept:
+
+BINDIR=/home/jay/.bin
+
 # Set term to the name of the virtual terminal program you want to use,
 # and set term_opts to the options it needs
 
@@ -18,6 +23,8 @@ term=konsole
 
 term_opts="--profile Timer --hide-menubar --hide-tabbar -p ScrollBarPosition=2 -p TerminalRows=2 -p TerminalColumns=13"
 
+# END OF CONFIGURATION
+
 if [ $# -gt 1 ]
 then
 	echo "gotime: too many arguments"
@@ -25,4 +32,4 @@ then
 	exit 1
 fi
 
-$term 2>/dev/null $term_opts -e gotime-cli "$@"
+$term 2>/dev/null $term_opts -e $BINDIR/gotime-cli "$@"

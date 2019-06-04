@@ -1,0 +1,8 @@
+#!/bin/bash
+
+curl -s https://changelog.com/slack/countdown/gotime | grep -m 1 'data' | grep -o '2[0-9][0-9][0-9].*[Zz]'
+
+if [ $? -ne 0 ]
+then
+	echo "No show scheduled"
+fi
