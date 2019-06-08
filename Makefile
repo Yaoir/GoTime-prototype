@@ -10,13 +10,14 @@ BINDIR=/home/jay/.bin
 
 # END OF CONFIGURATION
 
-SCRIPTS=gotime-autostart gotime gotime-cli gotime-scraper
-
-gotime2dur: gotime2dur.go
-	@go build -o gotime2dur gotime2dur.go
+SCRIPTS=gotime-autostart gotime gotime-cli
+COMMANDS=gotime-fetch gotime2dur
 
 gotime-fetch: gotime-fetch.go
 	@go build -o gotime-fetch gotime-fetch.go
+
+gotime2dur: gotime2dur.go
+	@go build -o gotime2dur gotime2dur.go
 
 vet:
 	@go vet gotime2dur.go
@@ -25,11 +26,11 @@ clean:
 	@rm -f gotime2dur
 
 install:
-	@cp gotime-fetch gotime2dur $(ELFDIR)
-	@cp $(SCRIPTS) $(BINDIR)
+	@cp $(COMMANDS) $(ELFDIR)
+	@cp $(SCRIPTS)  $(BINDIR)
 
 wc:
-	@wc -l gotime2dur.go
+	@wc -l *.go
 
 backup back bak:
 	@cp -a $(SCRIPTS) *.go Makefile README.md TODO .bak
