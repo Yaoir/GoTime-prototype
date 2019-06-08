@@ -15,6 +15,9 @@ SCRIPTS=gotime-autostart gotime gotime-cli gotime-scraper
 gotime2dur: gotime2dur.go
 	@go build -o gotime2dur gotime2dur.go
 
+gotime-fetch: gotime-fetch.go
+	@go build -o gotime-fetch gotime-fetch.go
+
 vet:
 	@go vet gotime2dur.go
 
@@ -22,7 +25,7 @@ clean:
 	@rm -f gotime2dur
 
 install:
-	@cp gotime2dur $(ELFDIR)
+	@cp gotime-fetch gotime2dur $(ELFDIR)
 	@cp $(SCRIPTS) $(BINDIR)
 
 wc:

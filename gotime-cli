@@ -29,7 +29,7 @@ elif [ $# -eq 1 ]
 then
 	duration="$1"
 else
-	start_time=`$BINDIR/gotime-scraper`
+	start_time=`$ELFDIR/gotime-fetch`
 
 	if [ $? -eq 0 ]
 	then

@@ -15,7 +15,7 @@ Dependencies:
 2. **bash(1)**, **curl(1)**, **sed(1)**, **grep(1)**, **echo(1)**, web browser (Firefox assumed)
 2. GNU **make**, if you want to use **make** for compiling and/or installing.
 3. The **gotime** script relies on KDE and **konsole**. If you want to use Gnome or some other desktop and/or virtual terminal, you can modify the script.
-4. The **gotime-autostart** script is for adding an Autostart program to KDE. I don't know if it works with any other desktop.
+4. The optional **gotime-autostart** script is for adding an Autostart program to KDE. I don't know if it works with any other desktop.
 
 This works on Linux at least. Maybe macOS? But on Windows, I assume you will need something like Cygwin or Windows Subsystem for Linux. I haven't tried it.
 
@@ -27,9 +27,9 @@ check
 
 A shell script just for testing. It is for checking to make sure the API is running and is reporting a time for the next scheduled show. It will print either an RFC3339 time string or "No show scheduled" if it can't find a time string at the API URL.
 
-gotime-scraper
+gotime-fetch.go
 
-A shell script that grabs the RFC3339 time string from the API and prints it.
+A Go program that grabs the RFC3339 time string from the Go Time API and prints it. If no show is currently scheduled, it reports that by printing the string provided by the API, and exits with an exit code of 1.
 
 gotime2dur.go
 
@@ -61,7 +61,7 @@ $ make
 
 To test:
 
-Try the **check** program and see if it prints an RFC3339 string or "No show scheduled". If that works, it's accessing the API successfully. If that works, run **gotime-scraper** to make sure that works too. It's the script used by **gotime**.
+Try the **check** program and see if it prints an RFC3339 string or "No show scheduled". If that works, it's accessing the API successfully. If that works, run **gotime-fetch** to make sure that works too. It's the script used by **gotime**.
 
 Next, try **gotime-cli** to see if it works on your command line shell. You can then configure the **gotime** script to open a virtual terminal window with the timer running in it.
 
